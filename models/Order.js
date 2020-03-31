@@ -24,7 +24,7 @@ const RecordSchema = new Schema({
   }
   
 });
-const Record = mongoose.model("Record", RecordSchema)
+const Record = mongoose.model('Record', RecordSchema)
 
 
 const OrderSchema = new Schema({
@@ -46,4 +46,4 @@ const Order = mongoose.model('Order', OrderSchema)
 const recordorder =  Order.findById().populate('records')
 console.log(recordorder)
 
-module.exports = mongoose.model("recordorder", OrderSchema);
+module.exports = mongoose.model("Order", OrderSchema);
