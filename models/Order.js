@@ -13,6 +13,7 @@ const OrderSchema = new Schema({
   records:{
     ref:"Record",
     type: mongoose.Schema.Types.ObjectId,
+    required: true
   }
 });
 
