@@ -24,7 +24,7 @@ const RecordSchema = new Schema({
   }
   
 });
-const Record = mongoose.model(Record, RecordSchema)
+const Record = mongoose.model("Record", RecordSchema)
 
 
 const OrderSchema = new Schema({
