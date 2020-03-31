@@ -42,10 +42,8 @@ const UserSchema = new Schema(
     },
   }
 );
-
-
+//
 const User = mongoose.model('User', UserSchema);
-
 
 
 UserSchema.virtual("fullName").get(function() {
