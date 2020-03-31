@@ -2,7 +2,7 @@
 const Orders      = require('../models/Order');
 
 exports.getOrders = async(req, res, next) => {
-  const orders    = await (await Orders.find()).populate("records");
+  const orders    = await  Orders.find().populate("records");
   res.status(200).send(orders);
 };
 
