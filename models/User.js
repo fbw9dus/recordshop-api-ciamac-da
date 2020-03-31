@@ -30,7 +30,8 @@ const UserSchema = new Schema(
     password: {
       type: String,
       required: true
-    }
+    },
+    address:AddressSchema
   },
   {
     toObject: {
@@ -39,20 +40,12 @@ const UserSchema = new Schema(
     toJSON: {
       virtuals: true
     },
-AddressSchema:AddressSchema
   }
 );
 
 
 const User = mongoose.model('User', UserSchema);
-(async() => {
-  const address = await User.create({
-      city: 'Düsseldorf',
-      street: "Hauptbahnhof",
-  })
-  const userdaten = await User.find()
-  console.log(userdaten)
-})()
+
 
 
 UserSchema.virtual("fullName").get(function() {
