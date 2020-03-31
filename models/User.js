@@ -1,6 +1,18 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
+const AddressSchema = new Schema({
+  city: {
+      type: String,
+      required: true
+  },
+  street:{
+      type: String,
+      required: true
+  },
+})
+
+
 const UserSchema = new Schema(
   {
     firstName: {
@@ -26,28 +38,20 @@ const UserSchema = new Schema(
     },
     toJSON: {
       virtuals: true
-    }
+    },
+AddressSchema:AddressSchema
   }
 );
 
-const AddressSchema = new Schema({
-  city: {
-      type: String,
-      required: true
-  },
-  street:{
-      type: String,
-      required: true
-  },
-})
-const Adresses = mongoose.model('Adresses', AddressSchema);
+
+const User = mongoose.model('User', Userchema);
 (async() => {
-  const address = await Addresses.create({
+  const address = await User.create({
       city: 'Düsseldorf',
       street: "Hauptbahnhof",
   })
-  const collectionData = await Addresses.find()
-  console.log(collectionData)
+  const userdaten = await User.find()
+  console.log(userdaten)
 })()
 
 
