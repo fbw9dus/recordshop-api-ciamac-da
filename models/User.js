@@ -44,7 +44,7 @@ AddressSchema:AddressSchema
 );
 
 
-const User = mongoose.model('User', Userschema);
+const User = mongoose.model('User', UserSchema);
 (async() => {
   const address = await User.create({
       city: 'Düsseldorf',
