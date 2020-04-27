@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
-const AddressSchema = require("./Address")
-const bycrypt = require('bycrypt')
+const bcrypt = require('bcrypt');
+
 const AddressSchema = new Schema({
   city: {
       type: String,
@@ -43,8 +43,6 @@ const UserSchema = new Schema(
     },
   }
 );
-//
-const User = mongoose.model('User', UserSchema);
 
 
 UserSchema.virtual("fullName").get(function() {
@@ -53,9 +51,8 @@ UserSchema.virtual("fullName").get(function() {
 
 UserSchema.pre('save', async function(next) {
   if(!this.isModified('password')) return next()
-  this.password = await bycrypt.hash(this.password,10)
+  this.password = await bcrypt.hash(this.password,10)
   next()
 });
 
-
-module.exports = mongoose.model("User", UserSchema);
+module.exports = mongoose.model('User', UserSchema);

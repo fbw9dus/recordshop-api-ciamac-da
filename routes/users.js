@@ -9,10 +9,16 @@ const {
   getUser,
   updateUser,
   deleteUser,
-  addUser
+  addUser, 
+  loginUser
 } = require("../controllers/usersController");
 const {userValidationRules} = require('../lib/validation/userRules')
 const {validateInputs} = require('../middleware/validator')
+
+
+router.route("/login")
+.post(loginUser)
+
 
 router
   .route("/")

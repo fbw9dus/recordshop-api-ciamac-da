@@ -1,5 +1,6 @@
 var Users = require('../models/User');
-var {validationResult} = require('express-validator')
+var {validationResult} = require('express-validator');
+const createError = require('http-errors');
 
 exports.getUsers = async (req, res, next) => {
   // Schreib hier code um alle Kunden aus der users-Collection zu holen
@@ -39,3 +40,16 @@ exports.addUser = async (req, res, next) => {
   await user.save()
   res.status(200).send(user);
 };
+
+// login
+exports.loginUser = async (req, res, next) => {
+  const { email, password } = req.body
+try{
+ const user = await User.findOne({ email })
+ const valid = user.password === password
+ if(!valid) throw new createError.NotFound()
+ res.status(200).send(user)
+}catch(error){
+ next(error)
+}
+}
