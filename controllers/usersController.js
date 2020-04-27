@@ -1,7 +1,7 @@
 var Users = require('../models/User');
 var {validationResult} = require('express-validator');
 const createError = require('http-errors');
-
+const encryption = require('../lib/validation/encryption');
 exports.getUsers = async (req, res, next) => {
   // Schreib hier code um alle Kunden aus der users-Collection zu holen
   var users = await Users.find()
@@ -33,12 +33,20 @@ exports.updateUser = async (req, res, next) => {
 
 exports.addUser = async (req, res, next) => {
 
-
-  const data = req.body;
+try{
+  const errors = validationResult(req)
+  if(!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
+  const user = req.body;
   // Schreib hier code um die Daten des neuen Kunden aus req.body in der users-Collection zu speichern
-  var user = new Users(data)
-  await user.save()
-  res.status(200).send(user);
+await User.init()
+const newUser = new User(user)
+await newUser.save()
+res.status(200).send(newuser);
+} catch (error) {
+  next(error)
+}
 };
 
 // login
@@ -46,7 +54,7 @@ exports.loginUser = async (req, res, next) => {
   const { email, password } = req.body
 try{
  const user = await User.findOne({ email })
- const valid = user.password === password
+ const valid = encryption.compare(password, user.password,)
  if(!valid) throw new createError.NotFound()
  res.status(200).send(user)
 }catch(error){
