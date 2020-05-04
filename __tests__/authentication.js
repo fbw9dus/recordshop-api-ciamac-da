@@ -70,7 +70,7 @@ describe('User Rights', () => {
         delete fakeUser.password
         const res = await request(app).get(`/users`).set('x-auth', `${token}`)
         delete fakeUser.password
-        expect(res.statusCode).not.toBe(200)
+        expect(res.statusCode).toBe(200)
         expect(res.body).toEqual(
             expect.not.arrayContaining([
                 expect.objectContaining(fakeUser)
