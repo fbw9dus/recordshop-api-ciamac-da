@@ -1,4 +1,5 @@
 /** EXTERNAL DEPENDENCIES */
+require("dotenv").config()
 
 const express = require("express");
 const path = require("path");
@@ -63,12 +64,6 @@ app.use(function(err, req, res, next) {
     }
   });
 });
-
-const PORT = process.env.PORT || 3001;
-
-//write npm run dev in terminal to start 
-app.listen(PORT, console.log(`Server started on port ${PORT}`))
-
 
 /** EXPORT PATH */
 module.exports = app;
