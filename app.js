@@ -1,4 +1,6 @@
 /** EXTERNAL DEPENDENCIES */
+require('dotenv').config();
+
 const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
@@ -20,11 +22,13 @@ const app = express();
 app.use(logger("dev"));
 
 /**CONNECT TO DB */
-mongoose.connect(process.env.DB, {
+mongoose.connect(process.env.MongoURI, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true
-});
+})
+.then(()=> console.log('mongoDB connected'))
+.catch(err => console.log(err));
 
 mongoose.connection.on("error", console.error);
 mongoose.connection.on("open", function() {
@@ -60,6 +64,12 @@ app.use(function(err, req, res, next) {
     }
   });
 });
+
+const PORT = process.env.PORT || 3001;
+
+//write npm run dev in terminal to start 
+app.listen(PORT, console.log(`Server started on port ${PORT}`))
+
 
 /** EXPORT PATH */
 module.exports = app;
