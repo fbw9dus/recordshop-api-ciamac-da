@@ -22,7 +22,7 @@ const app = express();
 app.use(logger("dev"));
 
 /**CONNECT TO DB */
-mongoose.connect(process.env.MongoURI, {
+mongoose.connect(process.env.MONGOURI, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true
